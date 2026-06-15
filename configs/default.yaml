@@ -1,0 +1,40 @@
+# Default training configuration.
+# Override any field from the command line / notebook before building components.
+
+seed: 42
+
+data:
+  # Root folder that contains the extracted dataset.
+  # The data module auto-detects either:
+  #   (a) <root>/train and <root>/test (or /val) subfolders, or
+  #   (b) a single <root> with one subfolder per class (ImageFolder layout).
+  data_dir: "data/skin-diseases"
+  image_size: 224
+  batch_size: 32
+  num_workers: 2
+  # Used only when the dataset has no predefined splits.
+  val_split: 0.15
+  test_split: 0.10
+
+model:
+  # Any of: resnet18, resnet50, efficientnet_b0, efficientnet_b3, mobilenet_v3_large
+  backbone: "efficientnet_b0"
+  pretrained: true
+  dropout: 0.3
+  # Freeze the backbone and train only the classifier head (fast warm-up).
+  freeze_backbone: false
+
+training:
+  epochs: 25
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: "adamw"        # adamw | adam | sgd
+  scheduler: "cosine"       # cosine | step | none
+  label_smoothing: 0.1
+  use_class_weights: true   # counteract class imbalance
+  early_stopping_patience: 6
+  mixed_precision: true     # AMP on GPU
+
+output:
+  checkpoint_dir: "outputs/checkpoints"
+  log_dir: "outputs/logs"

@@ -1,0 +1,29 @@
+# Data & model artifacts (never committed)
+data/
+outputs/
+*.pth
+*.pt
+*.ckpt
+
+# Kaggle credentials
+kaggle.json
+.kaggle/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
