@@ -77,7 +77,7 @@ class Trainer:
         self.scheduler = _build_scheduler(self.optimizer, config)
 
         self.use_amp = config.training.mixed_precision and self.device.type == "cuda"
-        self.scaler = torch.cuda.amp.GradScaler(enabled=self.use_amp)
+        self.scaler = torch.amp.GradScaler("cuda", enabled=self.use_amp)
 
         self.ckpt_dir = Path(config.output.checkpoint_dir)
         self.ckpt_dir.mkdir(parents=True, exist_ok=True)
@@ -103,7 +103,7 @@ class Trainer:
             targets = targets.to(self.device, non_blocking=True)
 
             with torch.set_grad_enabled(train):
-                with torch.cuda.amp.autocast(enabled=self.use_amp):
+                with torch.amp.autocast("cuda", enabled=self.use_amp):
                     logits = self.model(images)
                     loss = self.criterion(logits, targets)
 

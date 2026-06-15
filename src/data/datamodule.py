@@ -189,7 +189,7 @@ class SkinDiseaseDataModule:
             batch_size=self.batch_size,
             shuffle=True,
             num_workers=self.num_workers,
-            pin_memory=True,
+            pin_memory=torch.cuda.is_available(),
             drop_last=True,
         )
 
@@ -199,7 +199,7 @@ class SkinDiseaseDataModule:
             batch_size=self.batch_size,
             shuffle=False,
             num_workers=self.num_workers,
-            pin_memory=True,
+            pin_memory=torch.cuda.is_available(),
         )
 
     def test_dataloader(self) -> DataLoader:
@@ -208,7 +208,7 @@ class SkinDiseaseDataModule:
             batch_size=self.batch_size,
             shuffle=False,
             num_workers=self.num_workers,
-            pin_memory=True,
+            pin_memory=torch.cuda.is_available(),
         )
 
 
